@@ -1,0 +1,12 @@
+.block_featured_courses .course-image {
+    background-size: cover;
+    height: 70%;
+    width: 100%;
+}
+.block_featured_courses .thumbnail {
+    height: 300px;
+}
+.block_featured_courses .link i {
+    width: 24px;
+    height: 24px;
+}

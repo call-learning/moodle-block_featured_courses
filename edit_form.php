@@ -24,6 +24,7 @@
 
 /**
  * Class block_featured_courses_edit_form
+ *
  * @package    block_vetagro_news
  * @copyright 2020 - CALL Learning - Laurent David <laurent@call-learning>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -41,10 +42,34 @@ class block_featured_courses_edit_form extends block_edit_form {
         // Section header title according to language file.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
-        // A sample string variable with a default value.
-        $mform->addElement('text', 'config_text', get_string('blockstring', 'block_featured_courses'));
-        $mform->setDefault('config_text', 'default value');
-        $mform->setType('config_text', PARAM_MULTILANG);
+        // Title of the block.
+        $mform->addElement('text', 'config_title', get_string('config:title', 'block_featured_courses'));
+        $mform->setDefault('config_title', get_string('title', 'block_featured_courses'));
+        $mform->setType('config_title', PARAM_TEXT);
+
+
+        $courses = (core_course_category::get(0))->get_courses(['recursive'=>true]);
+        $courseitems = [];
+        foreach ($courses as $c) {
+            $courseitems[$c->id] = $c->get_formatted_name();
+        }
+
+        $repeatarray = array();
+        $repeatedoptions = array();
+
+        $repeatarray[] = $mform->createElement('searchableselector',
+            'config_selectedcourses',
+            get_string('config:selectedcourses', 'block_featured_courses'),
+            $courseitems
+        );
+        $repeatedoptions['config_selectedcourses']['type'] = PARAM_RAW;
+
+        $numbcourses = empty($this->block->config->selectedcourses) ? 1 : count($this->block->config->selectedcourses);
+        $this->repeat_elements($repeatarray, $numbcourses,
+            $repeatedoptions,
+            'selectcourses_repeats', 'selectcourse_add_fields', 3,
+            get_string('addmorecourses', 'block_featured_courses')
+        );
 
     }
 }

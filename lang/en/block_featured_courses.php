@@ -21,11 +21,12 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['blockstring'] = 'Block string';
-$string['descconfig'] = 'Description of the config section';
-$string['descfoo'] = 'Config description';
-$string['headerconfig'] = 'Config section header';
-$string['labelfoo'] = 'Config label';
 $string['featured_courses:addinstance'] = 'Add a featured_courses block';
 $string['featured_courses:myaddinstance'] = 'Add a featured_courses block to my moodle';
 $string['pluginname'] = 'Featured Courses';
+$string['title'] = 'Featured Courses';
+
+$string['config:title'] = 'Title';
+$string['config:selectedcourses'] = 'Selected course';
+$string['viewcourse'] = 'View Course';
+$string['addmorecourses'] = 'Add more courses';
