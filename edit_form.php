@@ -47,8 +47,7 @@ class block_featured_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_title', get_string('title', 'block_featured_courses'));
         $mform->setType('config_title', PARAM_TEXT);
 
-
-        $courses = (core_course_category::get(0))->get_courses(['recursive'=>true]);
+        $courses = (core_course_category::get(0))->get_courses(['recursive' => true]);
         $courseitems = [];
         foreach ($courses as $c) {
             $courseitems[$c->id] = $c->get_formatted_name();

@@ -84,9 +84,14 @@ class mini_course_summary_exporter extends course_summary_exporter {
             $courseimage = $output->get_generated_image_for_id($this->data->id);
         }
         $coursecategory = \core_course_category::get($this->data->category, MUST_EXIST, true);
+        $urlparam = array('id' => $this->data->id);
+        $courseurl = new moodle_url('/course/view.php', $urlparam);
+        if (class_exists('\\local_syllabus\\locallib\utils')) {
+            $courseurl = \local_syllabus\locallib\utils::get_syllabus_page_url($urlparam);
+        }
         return array(
             'fullnamedisplay' => get_course_display_name_for_list($this->data),
-            'viewurl' => (new moodle_url('/course/view.php', array('id' => $this->data->id)))->out(false),
+            'viewurl' => $courseurl->out(false),
             'courseimage' => $courseimage,
             'showshortname' => $CFG->courselistshortnames ? true : false,
             'coursecategory' => $coursecategory->name

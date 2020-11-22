@@ -43,7 +43,6 @@ class block_featured_courses extends block_base {
         $this->title = get_string('title', 'block_featured_courses');
     }
 
-
     /**
      * Update the block title from config values
      */
