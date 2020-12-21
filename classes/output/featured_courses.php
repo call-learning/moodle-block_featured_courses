@@ -17,14 +17,12 @@
 /**
  * Thumblinks Action block renderable.
  *
- * @package    block_thumblinks_action
+ * @package    block_featured_courses
  * @copyright 2020 - CALL Learning - Laurent David <laurent@call-learning>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace block_featured_courses\output;
-global $CFG;
-
 defined('MOODLE_INTERNAL') || die();
 
 use context_course;
@@ -35,6 +33,13 @@ use renderable;
 use renderer_base;
 use templatable;
 
+/**
+ * Class mini_course_summary_exporter
+ *
+ * @package    block_featured_courses
+ * @copyright 2020 - CALL Learning - Laurent David <laurent@call-learning>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class mini_course_summary_exporter extends course_summary_exporter {
 
     /**
@@ -67,16 +72,29 @@ class mini_course_summary_exporter extends course_summary_exporter {
      *
      * @param mixed $data - Either an stdClass or an array of values.
      * @param array $related - An optional list of pre-loaded objects related to this object.
+     * @throws \coding_exception
      */
     public function __construct($data, $related = array()) {
         \core\external\exporter::__construct($data, $related);
     }
 
+    /**
+     * Define related data
+     *
+     * @return string[]
+     */
     protected static function define_related() {
         // We cache the context so it does not need to be retrieved from the course.
         return array('context' => '\\context');
     }
 
+    /**
+     * Get additional values related to the course
+     *
+     * @param renderer_base $output
+     * @return array
+     * @throws \moodle_exception
+     */
     protected function get_other_values(renderer_base $output) {
         global $CFG;
         $courseimage = self::get_course_image($this->data);
@@ -103,7 +121,7 @@ class mini_course_summary_exporter extends course_summary_exporter {
 /**
  * Class containing data for featured_courses block.
  *
- * @package    block_mcms
+ * @package    block_featured_courses
  * @copyright 2020 - CALL Learning - Laurent David <laurent@call-learning>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -118,7 +136,7 @@ class featured_courses implements renderable, templatable {
      * featured_courses constructor.
      * Retrieve matchin courses
      *
-     * @param $coursesid
+     * @param int $coursesid
      * @throws \coding_exception
      * @throws \dml_exception
      */
@@ -128,6 +146,13 @@ class featured_courses implements renderable, templatable {
         $this->courses = $DB->get_records_select('course', 'id ' . $sql, $params);
     }
 
+    /**
+     * Export featured course data
+     *
+     * @param renderer_base $renderer
+     * @return array
+     * @throws \coding_exception
+     */
     public function export_for_template(renderer_base $renderer) {
         $formattedcourses = array_map(function($course) use ($renderer) {
             context_helper::preload_from_record($course);
