@@ -40,7 +40,7 @@ class block_featured_courses extends block_base {
      * @throws coding_exception
      */
     public function init() {
-        $this->title = get_string('title', 'block_featured_courses');
+        $this->title = get_string('pluginname', 'block_featured_courses');
     }
 
     /**

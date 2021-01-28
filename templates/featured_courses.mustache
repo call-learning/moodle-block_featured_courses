@@ -27,19 +27,21 @@
     <div class="container">
         <div class="row">
             {{#courses}}
-                <div class="thumbnail col mx-2 my-1 d-flex flex-column justify-content-start p-0">
-                    <div class="course-image"
-                         style='background-image: url("{{{ courseimage}}}");'>
-                    </div>
-                    <div class="title p-1 text-primary font-weight-bolder text-truncate title p-2 text-primary flex-grow-1">{{ fullname }}</div>
-                    <div class="d-flex flex-row p-2 ">
-                        <div class="otherinfo text-muted font-italic flex-grow-1">
-                            {{#startdate}}{{#userdate}}{{.}},  {{#str}} strftimedate {{/str}}{{/userdate}}{{/startdate}}</div>
-                        <div class="link">
-                            <a class="btn btn-primary rounded-circle p-1" href="{{viewurl}}">{{#pix}}t/right, core, {{#str}}viewcourse, block_featured_courses {{/str}}{{/pix}}</a>
+                <div class="col col-md-4 pt-3 pt-md-0">
+                    <div class="thumbnail my-1 d-flex flex-column justify-content-start">
+                        <div class="course-image"
+                             style='background-image: url("{{{ courseimage}}}");'>
+                        </div>
+                        <div class="title p-1 text-primary font-weight-bolder text-truncate title p-2 text-primary flex-grow-1">{{ fullname }}</div>
+                        <div class="d-flex flex-row p-2 ">
+                            <div class="otherinfo text-muted font-italic flex-grow-1">
+                                {{#startdate}}{{#userdate}}{{.}},  {{#str}} strftimedate {{/str}}{{/userdate}}{{/startdate}}</div>
+                            <div class="link">
+                                <a class="btn btn-primary rounded-circle p-1" href="{{viewurl}}">{{#pix}}
+                                    t/right, core, {{#str}}viewcourse, block_featured_courses {{/str}}{{/pix}}</a>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             {{/courses}}
         </div>

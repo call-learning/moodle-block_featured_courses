@@ -15,95 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Thumblinks Action block renderable.
+ * Featured courses renderable
  *
- * @package    block_thumblinks_action
+ * @package    block_featured_courses
  * @copyright 2020 - CALL Learning - Laurent David <laurent@call-learning>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace block_featured_courses\output;
-global $CFG;
-
 defined('MOODLE_INTERNAL') || die();
 
+use block_featured_courses\mini_course_summary_exporter;
 use context_course;
 use context_helper;
-use core_course\external\course_summary_exporter;
-use moodle_url;
 use renderable;
 use renderer_base;
 use templatable;
 
-class mini_course_summary_exporter extends course_summary_exporter {
-
-    /**
-     * Only a subset of the usual.
-     *
-     * @return array|array[]
-     */
-    public static function define_other_properties() {
-        return array(
-            'fullnamedisplay' => array(
-                'type' => PARAM_TEXT,
-            ),
-            'viewurl' => array(
-                'type' => PARAM_URL,
-            ),
-            'courseimage' => array(
-                'type' => PARAM_RAW,
-            ),
-            'showshortname' => array(
-                'type' => PARAM_BOOL
-            ),
-            'coursecategory' => array(
-                'type' => PARAM_TEXT
-            )
-        );
-    }
-
-    /**
-     * Constructor - saves the persistent object, and the related objects.
-     *
-     * @param mixed $data - Either an stdClass or an array of values.
-     * @param array $related - An optional list of pre-loaded objects related to this object.
-     */
-    public function __construct($data, $related = array()) {
-        \core\external\exporter::__construct($data, $related);
-    }
-
-    protected static function define_related() {
-        // We cache the context so it does not need to be retrieved from the course.
-        return array('context' => '\\context');
-    }
-
-    protected function get_other_values(renderer_base $output) {
-        global $CFG;
-        $courseimage = self::get_course_image($this->data);
-        if (!$courseimage) {
-            $courseimage = $output->get_generated_image_for_id($this->data->id);
-        }
-        $coursecategory = \core_course_category::get($this->data->category, MUST_EXIST, true);
-        $urlparam = array('id' => $this->data->id);
-        $courseurl = new moodle_url('/course/view.php', $urlparam);
-        if (class_exists('\\local_syllabus\\locallib\utils')) {
-            $courseurl = \local_syllabus\locallib\utils::get_syllabus_page_url($urlparam);
-        }
-        return array(
-            'fullnamedisplay' => get_course_display_name_for_list($this->data),
-            'viewurl' => $courseurl->out(false),
-            'courseimage' => $courseimage,
-            'showshortname' => $CFG->courselistshortnames ? true : false,
-            'coursecategory' => $coursecategory->name
-        );
-    }
-
-}
-
 /**
  * Class containing data for featured_courses block.
  *
- * @package    block_mcms
+ * @package    block_featured_courses
  * @copyright 2020 - CALL Learning - Laurent David <laurent@call-learning>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -118,7 +50,7 @@ class featured_courses implements renderable, templatable {
      * featured_courses constructor.
      * Retrieve matchin courses
      *
-     * @param $coursesid
+     * @param int $coursesid
      * @throws \coding_exception
      * @throws \dml_exception
      */
@@ -128,6 +60,13 @@ class featured_courses implements renderable, templatable {
         $this->courses = $DB->get_records_select('course', 'id ' . $sql, $params);
     }
 
+    /**
+     * Export the renderable for template
+     *
+     * @param renderer_base $renderer
+     * @return array
+     * @throws \coding_exception
+     */
     public function export_for_template(renderer_base $renderer) {
         $formattedcourses = array_map(function($course) use ($renderer) {
             context_helper::preload_from_record($course);

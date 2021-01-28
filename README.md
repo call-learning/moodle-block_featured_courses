@@ -1,6 +1,19 @@
 # Featured courses #
 
-A block to push forward a set of courses from the global list of courses.
+[![Build Status](https://travis-ci.org/call-learning/moodle-block-featured_courses.svg?branch=master)](https://travis-ci.org/call-learning/moodle-block-featured_courses)
+
+A block to display of courses from the global list of courses.
+
+Once added, you will then be able to select a set of courses from the list of all courses.
+
+# Features #
+
+* Allow to remove the last course from the list if too many courses are added.
+* Integrates with the module local_syllabus if enabled and present.
+
+# TODO
+
+* Test for higher load of courses in the edit form ( we might be able to do this in ajax instead of loading all courses in memory )
 
 ## License ##
 

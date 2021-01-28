@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_featured_courses', language 'en'
+ * Strings for component 'block_featured_courses', language 'fr'
  *
  * @copyright 2020 - CALL Learning - Laurent David <laurent@call-learning>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['addmorecourses'] = 'Add {no} more courses';
-$string['config:title'] = 'Title';
-$string['config:selectedcourses'] = 'Selected course {no}';
-$string['featured_courses:addinstance'] = 'Add a featured_courses block';
-$string['featured_courses:myaddinstance'] = 'Add a featured_courses block to my moodle';
-$string['pluginname'] = 'Featured Courses';
-$string['removelastcourses'] = 'Remove last course';
-$string['viewcourse'] = 'View Course';
+$string['addmorecourses'] = 'Ajouter {no} cours';
+$string['config:title'] = 'Titre';
+$string['config:selectedcourses'] = 'Cours selectionné {no}';
+$string['featured_courses:addinstance'] = 'Ajouter un block Les cours mis en avant';
+$string['featured_courses:myaddinstance'] = 'Ajouter un block Les Cours mis en avant au tableau de bord';
+$string['pluginname'] = 'Cours mis en avant';
+$string['removelastcourses'] = 'Retire le dernier cours';
+$string['viewcourse'] = 'Voir le cours';
