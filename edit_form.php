@@ -50,7 +50,7 @@ class block_featured_courses_edit_form extends block_edit_form {
         $courses = (core_course_category::get(0))->get_courses(['recursive' => true]);
         $courseitems = [];
         foreach ($courses as $c) {
-            $courseitems[$c->id] = $c->get_formatted_name();
+            $courseitems[$c->id] = " {$c->get_formatted_name()} ($c->id)";
         }
         $repeatarray = array();
         $repeatedoptions = array();
