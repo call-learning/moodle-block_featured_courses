@@ -56,7 +56,14 @@ class featured_courses implements renderable, templatable {
      */
     public function __construct($coursesid) {
         global $DB;
-        list($sql, $params) = $DB->get_in_or_equal($coursesid, SQL_PARAMS_NAMED);
+        // First make sure that we have id in the table and not empty strings.
+        $realcourseids = [];
+        foreach($coursesid as $cid) {
+            if ($cid && is_numeric($cid)) {
+                $realcourseids[] = $cid;
+            }
+        }
+        list($sql, $params) = $DB->get_in_or_equal($realcourseids, SQL_PARAMS_NAMED);
         $this->courses = $DB->get_records_select('course', 'id ' . $sql, $params);
     }
 
