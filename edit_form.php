@@ -109,7 +109,7 @@ class block_featured_courses_edit_form extends block_edit_form {
         $addbuttoninside = false,
         $deletefieldsname = null,
         $deletestring = null
-    ) {
+    ): int {
         $repeats = $this->optional_param($repeathiddenname, $repeats, PARAM_INT);
         if ($deletefieldsname) {
             $removefields = $this->optional_param($deletefieldsname, '', PARAM_TEXT);
@@ -172,7 +172,7 @@ class block_featured_courses_edit_form extends block_edit_form {
                             call_user_func_array(array(&$mform, 'addHelpButton'), $params);
                             break;
                         case 'disabledif' :
-                            foreach ($namecloned as $num => $name) {
+                            foreach ($namecloned as $name) {
                                 if ($params[0] == $name) {
                                     $params[0] = $params[0] . "[$i]";
                                     break;
@@ -182,7 +182,7 @@ class block_featured_courses_edit_form extends block_edit_form {
                             call_user_func_array(array(&$mform, 'disabledIf'), $params);
                             break;
                         case 'hideif' :
-                            foreach ($namecloned as $num => $name) {
+                            foreach ($namecloned as $name) {
                                 if ($params[0] == $name) {
                                     $params[0] = $params[0] . "[$i]";
                                     break;

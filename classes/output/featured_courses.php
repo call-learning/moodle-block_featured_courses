@@ -23,11 +23,12 @@
  */
 
 namespace block_featured_courses\output;
-defined('MOODLE_INTERNAL') || die();
 
 use block_featured_courses\mini_course_summary_exporter;
+use coding_exception;
 use context_course;
 use context_helper;
+use dml_exception;
 use renderable;
 use renderer_base;
 use templatable;
@@ -42,7 +43,9 @@ use templatable;
 class featured_courses implements renderable, templatable {
 
     /**
-     * @var array course
+     * The list of the courses. Initialized empty
+     *
+     * @var array $courses
      */
     public $courses = [];
 
@@ -50,15 +53,15 @@ class featured_courses implements renderable, templatable {
      * featured_courses constructor.
      * Retrieve matchin courses
      *
-     * @param int $coursesid
-     * @throws \coding_exception
-     * @throws \dml_exception
+     * @param array $coursesid
+     * @throws coding_exception
+     * @throws dml_exception
      */
-    public function __construct($coursesid) {
+    public function __construct(array $coursesid) {
         global $DB;
         // First make sure that we have id in the table and not empty strings.
         $realcourseids = [];
-        foreach($coursesid as $cid) {
+        foreach ($coursesid as $cid) {
             if ($cid && is_numeric($cid)) {
                 $realcourseids[] = $cid;
             }
@@ -72,19 +75,17 @@ class featured_courses implements renderable, templatable {
      *
      * @param renderer_base $renderer
      * @return array
-     * @throws \coding_exception
+     * @throws coding_exception
      */
-    public function export_for_template(renderer_base $renderer) {
+    public function export_for_template(renderer_base $renderer): array {
         $formattedcourses = array_map(function($course) use ($renderer) {
             context_helper::preload_from_record($course);
             $context = context_course::instance($course->id);
             $exporter = new mini_course_summary_exporter($course, ['context' => $context]);
-            $exported = (array) $exporter->export($renderer);
-            return $exported;
+            return (array) $exporter->export($renderer);
         }, $this->courses);
-        $exportedvalue = [
-            'courses' => array_values((array) $formattedcourses),
+        return [
+            'courses' => array_values($formattedcourses),
         ];
-        return $exportedvalue;
     }
 }

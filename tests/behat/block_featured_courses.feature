@@ -13,7 +13,8 @@ Feature: Add a featured block on the dashboard
   @javascript
   Scenario: Add the block and set 3 featured courses
     Given I log in as "admin"
-    And I click on "Customise this page" "button"
+    Then I am on homepage
+    And I turn editing mode on
     And I add the "Featured Courses" block
     And I configure the "Featured Courses" block
     And I expand all fieldsets
@@ -33,7 +34,7 @@ Feature: Add a featured block on the dashboard
   @javascript
   Scenario: Add the block and set 3 featured courses and remove one after, only two should display
     Given I log in as "admin"
-    And I click on "Customise this page" "button"
+    Then I turn editing mode on
     And I add the "Featured Courses" block
     And I configure the "Featured Courses" block
     And I expand all fieldsets
