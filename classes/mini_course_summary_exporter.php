@@ -98,7 +98,7 @@ class mini_course_summary_exporter extends course_summary_exporter {
             'fullnamedisplay' => get_course_display_name_for_list($this->data),
             'viewurl' => $courseurl->out(false),
             'courseimage' => $courseimage,
-            'showshortname' => (bool) $CFG->courselistshortnames,
+            'showshortname' => (bool) ($CFG->courselistshortnames ?? false),
             'coursecategory' => $coursecategory->name
         );
     }

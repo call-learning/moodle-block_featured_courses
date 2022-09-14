@@ -12,7 +12,7 @@
 }
 
 /* To fix oval button. */
-.circle-btn-featured-courses{
-    width:2rem;
-    height:2rem;
+.block_featured_courses .circle-btn {
+    width: 2rem;
+    height: 2rem;
 }
