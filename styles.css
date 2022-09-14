@@ -10,3 +10,9 @@
     width: 24px;
     height: 24px;
 }
+
+/* To fix oval button. */
+.circle-btn-featured-courses{
+    width:2rem;
+    height:2rem;
+}

@@ -24,8 +24,6 @@
 
 use block_featured_courses\output\featured_courses;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class block_featured_courses
  *
@@ -55,8 +53,9 @@ class block_featured_courses extends block_base {
     /**
      * Content for the block
      *
-     * @return \stdClass|string|null
+     * @return stdClass|string|null
      * @throws coding_exception
+     * @throws dml_exception
      */
     public function get_content() {
 
@@ -87,7 +86,7 @@ class block_featured_courses extends block_base {
      *
      * @return array
      */
-    public function applicable_formats() {
+    public function applicable_formats(): array {
         return array('all' => true);
     }
 
@@ -96,7 +95,7 @@ class block_featured_courses extends block_base {
      *
      * @return bool
      */
-    public function instance_allow_multiple() {
+    public function instance_allow_multiple(): bool {
         return true;
     }
 
@@ -105,7 +104,7 @@ class block_featured_courses extends block_base {
      *
      * @return bool
      */
-    public function has_config() {
+    public function has_config(): bool {
         return false;
     }
 }

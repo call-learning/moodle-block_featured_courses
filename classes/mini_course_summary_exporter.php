@@ -23,10 +23,10 @@
  */
 
 namespace block_featured_courses;
-defined('MOODLE_INTERNAL') || die();
-global $CFG;
 
 use core_course\external\course_summary_exporter;
+use core_course_category;
+use moodle_exception;
 use moodle_url;
 use renderer_base;
 
@@ -45,7 +45,7 @@ class mini_course_summary_exporter extends course_summary_exporter {
      *
      * @return array|array[]
      */
-    public static function define_other_properties() {
+    public static function define_other_properties(): array {
         return array(
             'fullnamedisplay' => array(
                 'type' => PARAM_TEXT,
@@ -66,21 +66,11 @@ class mini_course_summary_exporter extends course_summary_exporter {
     }
 
     /**
-     * Constructor - saves the persistent object, and the related objects.
-     *
-     * @param mixed $data - Either an stdClass or an array of values.
-     * @param array $related - An optional list of pre-loaded objects related to this object.
-     */
-    public function __construct($data, $related = array()) {
-        \core\external\exporter::__construct($data, $related);
-    }
-
-    /**
      * Define related variables
      *
      * @return string[]
      */
-    protected static function define_related() {
+    protected static function define_related(): array {
         // We cache the context so it does not need to be retrieved from the course.
         return array('context' => '\\context');
     }
@@ -90,15 +80,15 @@ class mini_course_summary_exporter extends course_summary_exporter {
      *
      * @param renderer_base $output
      * @return array
-     * @throws \moodle_exception
+     * @throws moodle_exception
      */
-    protected function get_other_values(renderer_base $output) {
+    protected function get_other_values(renderer_base $output): array {
         global $CFG;
         $courseimage = self::get_course_image($this->data);
         if (!$courseimage) {
             $courseimage = $output->get_generated_image_for_id($this->data->id);
         }
-        $coursecategory = \core_course_category::get($this->data->category, MUST_EXIST, true);
+        $coursecategory = core_course_category::get($this->data->category, MUST_EXIST, true);
         $urlparam = array('id' => $this->data->id);
         $courseurl = new moodle_url('/course/view.php', $urlparam);
         if (!empty($CFG->enablesyllabus) && class_exists('\\local_syllabus\\locallib\utils')) {
@@ -108,7 +98,7 @@ class mini_course_summary_exporter extends course_summary_exporter {
             'fullnamedisplay' => get_course_display_name_for_list($this->data),
             'viewurl' => $courseurl->out(false),
             'courseimage' => $courseimage,
-            'showshortname' => $CFG->courselistshortnames ? true : false,
+            'showshortname' => (bool) $CFG->courselistshortnames,
             'coursecategory' => $coursecategory->name
         );
     }
