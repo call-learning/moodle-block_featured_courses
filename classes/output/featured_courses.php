@@ -42,7 +42,11 @@ use templatable;
  */
 class featured_courses implements renderable, templatable {
 
-    /** @var array $courses The list of the courses. Initialized empty */
+    /**
+     * The list of the courses. Initialized empty
+     *
+     * @var array $courses
+     */
     public array $courses = [];
 
     /**
