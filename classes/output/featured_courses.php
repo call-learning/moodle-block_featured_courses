@@ -43,7 +43,7 @@ use templatable;
 class featured_courses implements renderable, templatable {
 
     /**
-     * @var array course
+     * @var array $courses
      */
     public array $courses = [];
 
