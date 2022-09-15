@@ -47,7 +47,7 @@ class featured_courses implements renderable, templatable {
      *
      * @var array $courses
      */
-    public array $courses = [];
+    public $courses = [];
 
     /**
      * featured_courses constructor.
