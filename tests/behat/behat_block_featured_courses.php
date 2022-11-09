@@ -42,7 +42,6 @@ class behat_block_featured_courses extends behat_base {
         global $CFG;
         require_once($CFG->dirroot . "/lib/environmentlib.php");
         $release = intval(get_config('', 'release')[0]);
-        echo $release;
         if (normalize_version($release) > 3) {
             $this->execute('behat_navigation::i_turn_editing_mode_on', []);
         } else {
