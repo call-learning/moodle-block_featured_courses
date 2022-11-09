@@ -14,8 +14,8 @@ Feature: Add a featured block on the dashboard
   Scenario: Add the block, set 4 featured courses and remove one after, only two should display
     Given I log in as "admin"
     And I set editing mode on
-    And I add the "Featured Courses" block
-    And I configure the "Featured Courses" block
+    And I add the "Featured courses" block
+    And I configure the "Featured courses" block
     And I expand all fieldsets
     And I should see "Title"
     And I set the field "Title" to "My featured courses"
