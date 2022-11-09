@@ -23,8 +23,9 @@
  */
 
 /**
- * A patch to make "i turn editing mode on" compatible with moodle 3.
+ * A patch to make "I turn editing mode on" compatible with moodle 3.
  *
+ * @package     block_featured_courses
  * @copyright   2022 - CALL Learning
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author      Martin CORNU-MANSUY <martin@call-learning>
