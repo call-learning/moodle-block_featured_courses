@@ -66,8 +66,12 @@ class featured_courses implements renderable, templatable {
                 $realcourseids[] = $cid;
             }
         }
-        list($sql, $params) = $DB->get_in_or_equal($realcourseids, SQL_PARAMS_NAMED);
-        $this->courses = $DB->get_records_select('course', 'id ' . $sql, $params);
+        if (empty($realcourseids)) {
+            $this->courses = [];
+        } else {
+            list($sql, $params) = $DB->get_in_or_equal($realcourseids, SQL_PARAMS_NAMED);
+            $this->courses = $DB->get_records_select('course', 'id ' . $sql, $params);
+        }
     }
 
     /**
