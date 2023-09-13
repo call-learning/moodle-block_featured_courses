@@ -71,6 +71,11 @@ class featured_courses implements renderable, templatable {
         } else {
             list($sql, $params) = $DB->get_in_or_equal($realcourseids, SQL_PARAMS_NAMED);
             $this->courses = $DB->get_records_select('course', 'id ' . $sql, $params);
+
+            // Taken from https://www.designcise.com/web/tutorial/how-to-sort-an-array-by-keys-based-on-order-in-a-secondary-array-in-php
+            uksort( $this->courses, function($key1, $key2) use ($realcourseids) {
+                return ((array_search($key1, $realcourseids) > array_search($key2, $realcourseids)) ? 1 : -1);
+            });
         }
     }
 
