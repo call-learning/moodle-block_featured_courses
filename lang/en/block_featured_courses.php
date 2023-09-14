@@ -29,3 +29,9 @@ $string['featured_courses:myaddinstance'] = 'Add a featured_courses block to my 
 $string['pluginname'] = 'Featured courses';
 $string['removelastcourses'] = 'Remove last course';
 $string['viewcourse'] = 'View course';
+
+// Settings.
+$string['settings:select0'] = 'Block internal course template';
+$string['settings:select1'] = 'Moodle core course card carousel';
+$string['settings:select2'] = 'Moodle core course card grid';
+$string['settings:label'] = 'Course render layout';

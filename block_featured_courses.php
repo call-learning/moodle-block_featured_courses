@@ -58,6 +58,7 @@ class block_featured_courses extends block_base {
      * @throws dml_exception
      */
     public function get_content() {
+        global $OUTPUT;
 
         if ($this->content !== null) {
             return $this->content;
@@ -72,11 +73,21 @@ class block_featured_courses extends block_base {
         if ($this->config && !empty($this->config->selectedcourses)) {
             $this->content = new stdClass();
             $this->content->footer = '';
-            $renderer = $this->page->get_renderer('core');
-            $this->content->text = $renderer->render(
-                new featured_courses(
-                    $this->config->selectedcourses
-                ));
+
+            $courseRenderer = new featured_courses($this->config->selectedcourses);
+            switch ($this->config->courselayout){
+                case 0;
+                    $this->content->text = $OUTPUT->render($courseRenderer);
+                    break;
+                case 1:
+                    $this->content->text =
+                        $OUTPUT->render_from_template('core_course/view-cards', $courseRenderer->export_for_template($OUTPUT));
+                    break;
+                case 2:
+                    $this->content->text =
+                        $OUTPUT->render_from_template('tool_moodlenet/view-cards', $courseRenderer->export_for_template($OUTPUT));
+                    break;
+            }
         }
         return $this->content;
     }

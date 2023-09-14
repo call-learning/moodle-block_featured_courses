@@ -47,6 +47,15 @@ class block_featured_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_title', get_string('pluginname', 'block_featured_courses'));
         $mform->setType('config_title', PARAM_TEXT);
 
+        // Course layout type
+        $choices = [
+            0 => get_string('settings:select0', 'block_featured_courses'),
+            1 => get_string('settings:select1', 'block_featured_courses'),
+            2 => get_string('settings:select2', 'block_featured_courses'),
+        ];
+        $mform->addElement('select', 'config_courselayout',  get_string('settings:label', 'block_featured_courses'), $choices);
+        $mform->setDefault('config_courselayout', 0);
+
         $courses = (core_course_category::get(0))->get_courses(['recursive' => true]);
         $courseitems = [];
         foreach ($courses as $c) {
