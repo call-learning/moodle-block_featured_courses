@@ -1,6 +1,6 @@
 # Featured courses #
 
-[![Moodle Plugin CI](https://github.com/call-learning/moodle-block_featured_courses/actions/workflows/main.yml/badge.svg)](https://github.com/call-learning/moodle-block_featured_courses/actions/workflows/main.yml)
+[![Moodle Plugin CI](https://github.com/call-learning/moodle-block_featured_courses/actions/workflows/ci.yml/badge.svg)](https://github.com/call-learning/moodle-block_featured_courses/actions/workflows/ci.yml)
 
 A block to display of courses from the global list of courses.
 

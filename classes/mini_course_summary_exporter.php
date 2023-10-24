@@ -46,23 +46,23 @@ class mini_course_summary_exporter extends course_summary_exporter {
      * @return array|array[]
      */
     public static function define_other_properties(): array {
-        return array(
-            'fullnamedisplay' => array(
+        return [
+            'fullnamedisplay' => [
                 'type' => PARAM_TEXT,
-            ),
-            'viewurl' => array(
+            ],
+            'viewurl' => [
                 'type' => PARAM_URL,
-            ),
-            'courseimage' => array(
+            ],
+            'courseimage' => [
                 'type' => PARAM_RAW,
-            ),
-            'showshortname' => array(
-                'type' => PARAM_BOOL
-            ),
-            'coursecategory' => array(
-                'type' => PARAM_TEXT
-            )
-        );
+            ],
+            'showshortname' => [
+                'type' => PARAM_BOOL,
+            ],
+            'coursecategory' => [
+                'type' => PARAM_TEXT,
+            ],
+        ];
     }
 
     /**
@@ -72,7 +72,7 @@ class mini_course_summary_exporter extends course_summary_exporter {
      */
     protected static function define_related(): array {
         // We cache the context so it does not need to be retrieved from the course.
-        return array('context' => '\\context');
+        return ['context' => '\\context'];
     }
 
     /**
@@ -89,18 +89,18 @@ class mini_course_summary_exporter extends course_summary_exporter {
             $courseimage = $output->get_generated_image_for_id($this->data->id);
         }
         $coursecategory = core_course_category::get($this->data->category, MUST_EXIST, true);
-        $urlparam = array('id' => $this->data->id);
+        $urlparam = ['id' => $this->data->id];
         $courseurl = new moodle_url('/course/view.php', $urlparam);
         if (!empty($CFG->enablesyllabus) && class_exists('\\local_syllabus\\locallib\utils')) {
             $courseurl = \local_syllabus\locallib\utils::get_syllabus_page_url($urlparam);
         }
-        return array(
+        return [
             'fullnamedisplay' => get_course_display_name_for_list($this->data),
             'viewurl' => $courseurl->out(false),
             'courseimage' => $courseimage,
             'showshortname' => (bool) ($CFG->courselistshortnames ?? false),
-            'coursecategory' => $coursecategory->name
-        );
+            'coursecategory' => $coursecategory->name,
+        ];
     }
 
 }

@@ -87,7 +87,7 @@ class block_featured_courses extends block_base {
      * @return array
      */
     public function applicable_formats(): array {
-        return array('all' => true);
+        return ['all' => true];
     }
 
     /**
